@@ -26,10 +26,9 @@ public class PlayerController : MonoBehaviour
     private float _mouseSensitivity = 5;
 
     private Vector3 _velocity;
-    private Vector3 _gravity;
     private Vector3 _viewAngles;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -53,14 +52,15 @@ public class PlayerController : MonoBehaviour
         wishDir.y = 0;
         wishDir.Normalize();
 
-        _velocity = wishDir * _walkSpeed * Time.fixedDeltaTime;
+        _velocity += wishDir * _walkSpeed * Time.fixedDeltaTime;
 
         if (!_controller.isGrounded)
-            _gravity += Physics.gravity * Time.fixedDeltaTime;
-        else
-            _gravity = Vector3.zero;
+        {
+            _velocity += Physics.gravity * 0.35f * Time.fixedDeltaTime;
+        }
 
-        _controller.Move(_velocity + _gravity);
-        _velocity = Vector3.Lerp(_velocity, Vector3.zero, Time.fixedDeltaTime * _deAccel);
+        _controller.Move(_velocity);
+        _velocity.x = Mathf.Lerp(_velocity.x, 0, Time.fixedDeltaTime * _deAccel);
+        _velocity.z = Mathf.Lerp(_velocity.z, 0, Time.fixedDeltaTime * _deAccel);
     }
 }
