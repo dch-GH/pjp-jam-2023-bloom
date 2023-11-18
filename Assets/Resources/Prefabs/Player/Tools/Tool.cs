@@ -9,6 +9,10 @@ public abstract class Tool : MonoBehaviour
 
     public const float SphereCastSize = 0.25f;
 
+    [SerializeField]
+    private float _useRateSeconds = 1.0f;
+    private float _lastUseTime;
+
     void Awake()
     {
         _collider = GetComponent<Collider>();
@@ -39,7 +43,13 @@ public abstract class Tool : MonoBehaviour
     /// <returns></returns>
     public virtual bool OnUse(PlayerController player, Ray aimRay)
     {
+        _lastUseTime = Time.time;
         return true;
+    }
+
+    protected virtual bool CanUse(PlayerController player, Ray aimRay)
+    {
+        return Time.time - _lastUseTime >= _useRateSeconds;
     }
 
     protected bool TryGetInteractable(PlayerController player, out RaycastHit hit, string colliderLayer, float radius = SphereCastSize, float maxDistance = 5, bool includeTrigger = false)

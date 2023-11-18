@@ -5,13 +5,10 @@ public class WateringCan : Tool
     [SerializeField]
     private float _waterAmount = 5;
 
-    [SerializeField]
-    private float _coolDownSeconds = 10;
-    private float _sinceWaterTime;
 
     public override bool OnUse(PlayerController player, Ray aimRay)
     {
-        if (Time.time - _sinceWaterTime < _coolDownSeconds)
+        if (!base.CanUse(player, aimRay))
             return false;
 
         if (!TryGetInteractable(player, out var hit, Layers.Hitbox))
@@ -26,9 +23,8 @@ public class WateringCan : Tool
                 return false;
 
             planter.Crop.Water(_waterAmount);
-            _sinceWaterTime = Time.time;
             Debug.Log($"Watering crop: {planter.Crop}");
-            return true;
+            return base.OnUse(player, aimRay);
         }
 
         return false;

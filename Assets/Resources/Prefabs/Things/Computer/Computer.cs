@@ -1,7 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Experimental.Rendering;
-using UnityEngine.UI;
 
 public class Computer : MonoBehaviour
 {
@@ -13,6 +10,9 @@ public class Computer : MonoBehaviour
 
     [SerializeField]
     private float _interactDistance = 4;
+
+    [SerializeField]
+    private AudioSource _changeTabSound;
 
     void OnEnable()
     {
@@ -45,6 +45,8 @@ public class Computer : MonoBehaviour
         Debug.Log("home clicked");
         _stocks.alpha = 0;
         _home.alpha = 1;
+        _changeTabSound.Stop();
+        _changeTabSound.Play();
     }
 
 
@@ -53,5 +55,7 @@ public class Computer : MonoBehaviour
         Debug.Log("stocks clicked");
         _stocks.alpha = 1;
         _home.alpha = 0;
+        _changeTabSound.Stop();
+        _changeTabSound.Play();
     }
 }

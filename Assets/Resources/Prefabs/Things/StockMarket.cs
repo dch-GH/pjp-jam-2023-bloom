@@ -13,8 +13,11 @@ public class StockMarket : MonoBehaviour
     private int _currentMarketDay;
 
     [SerializeField]
-    private float _marketUpdateRateSeconds = 10;
+    private float _marketUpdateRateSeconds = 7;
     private float _lastMarketUpdateTime;
+
+    [SerializeField]
+    private AudioSource _pricesUpdateSound;
 
     void Start()
     {
@@ -28,9 +31,17 @@ public class StockMarket : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(Time.time);
         if (Time.time - _lastMarketUpdateTime >= _marketUpdateRateSeconds)
         {
+            _marketDays += 1;
+            if (_marketDays >= 7)
+                _marketDays = 0;
+
             UpdateStockMarket();
+            _pricesUpdateSound.Stop();
+            _pricesUpdateSound.Play();
+            _lastMarketUpdateTime = Time.time;
         }
     }
 
@@ -41,17 +52,22 @@ public class StockMarket : MonoBehaviour
 
     private void UpdateStockMarket()
     {
+        Debug.Log("Stock market prices updated");
         Market = new Dictionary<CropId, double[]> {
-            { CropId.BluePetal, GenerateStockPrices(_marketDays) },
+            { CropId.BluePetal, GenerateStockPrices(_marketDays, weight: 0.25f) },
             { CropId.PurplePetal, GenerateStockPrices(_marketDays) },
             { CropId.WhitePetal, GenerateStockPrices(_marketDays) },
             };
     }
 
-    private double[] GenerateStockPrices(int numDays)
+    private double[] GenerateStockPrices(int numDays, float weight = 0)
     {
-        double initialPrice = UnityEngine.Random.Range(1, 200);
-        double driftMean = UnityEngine.Random.Range(0.1f, 1f);
+        var priceWeight = weight > 0 ? weight : 1;
+        var volatilityWeight = weight * 0.5f;
+        var driftWeight = weight * 0.025f;
+
+        double initialPrice = UnityEngine.Random.Range(1, 200 * priceWeight);
+        double driftMean = UnityEngine.Random.Range(0.1f, 1f - driftWeight);
         double driftStd = 0.01f;
         double volatility = UnityEngine.Random.Range(0.01f, 3f);
         var prices = new List<double> { initialPrice };

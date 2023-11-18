@@ -17,7 +17,7 @@ public class StockPriceUI : MonoBehaviour
     void Update()
     {
         var price = StockMarket.Instance.GetStockPrice(_crop);
-        _label.text = string.Format("$ {0}", price);
+        _label.text = string.Format("$ {0}", (int)price);
         var remapped = math.remap(price, 0, 1000f, 0, 1);
         _slider.value = (float)remapped;
     }
