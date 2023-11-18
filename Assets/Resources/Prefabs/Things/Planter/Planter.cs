@@ -33,6 +33,7 @@ public class Planter : MonoBehaviour
     public void PlantCrop(Crop crop)
     {
         _plantedCrop = crop;
+        Player.Instance.PlantedCrops.Add(_plantedCrop);
         _plantedCrop.transform.position += _cropOffset;
         _worldPanelGroup.alpha = 1;
         UpdateState();
@@ -42,6 +43,7 @@ public class Planter : MonoBehaviour
     {
         if (_plantedCrop != null)
         {
+            Player.Instance.PlantedCrops.Remove(_plantedCrop);
             Destroy(_plantedCrop);
             _worldPanelGroup.alpha = 0;
         }
