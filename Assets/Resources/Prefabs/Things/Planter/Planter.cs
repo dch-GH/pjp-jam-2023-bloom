@@ -18,18 +18,23 @@ public class Planter : MonoBehaviour
     [SerializeField]
     private GameObject _growingPlot;
 
+    [SerializeField]
+    private CanvasGroup _worldPanelGroup;
+
+    // nullable
     private Crop _plantedCrop;
     public bool HasCrop => _plantedCrop != null;
+    public Crop Crop => _plantedCrop;
 
     void Update()
     {
-
     }
 
     public void PlantCrop(Crop crop)
     {
         _plantedCrop = crop;
         _plantedCrop.transform.position += _cropOffset;
+        _worldPanelGroup.alpha = 1;
         UpdateState();
     }
 
@@ -38,6 +43,7 @@ public class Planter : MonoBehaviour
         if (_plantedCrop != null)
         {
             Destroy(_plantedCrop);
+            _worldPanelGroup.alpha = 0;
         }
         UpdateState();
     }

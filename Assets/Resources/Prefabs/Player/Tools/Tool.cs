@@ -1,13 +1,9 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
-using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Collider), typeof(Rigidbody))]
 public abstract class Tool : MonoBehaviour
 {
     public Vector3 HoldOffset;
-
     private Collider _collider;
     private Rigidbody _rb;
 

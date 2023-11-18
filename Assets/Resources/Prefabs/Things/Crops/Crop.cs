@@ -37,7 +37,14 @@ public class Crop : MonoBehaviour
 
     // range of 0.0f - 1.0f
     private float _waterLevel;
+    public float WaterPercentage => _waterLevel;
     private float _droughtDamageTime;
+
+    void Awake()
+    {
+        // So the crop doesn't start taking damage instantly.
+        _waterLevel = _requiredWaterLevel + 0.05f;
+    }
 
     void FixedUpdate()
     {
@@ -60,7 +67,7 @@ public class Crop : MonoBehaviour
             _growth += 1;
             _sinceGrowTime = Time.time;
 
-            Debug.Log($"Growth value: {_growth}");
+            Debug.Log($"{Id.ToString()} Growth value: {_growth}");
         }
     }
 
@@ -77,5 +84,12 @@ public class Crop : MonoBehaviour
         {
             Die();
         }
+    }
+
+    public void Water(float amount)
+    {
+        _waterLevel += amount;
+        if (_waterLevel > 1.0f)
+            _waterLevel = 1.0f;
     }
 }

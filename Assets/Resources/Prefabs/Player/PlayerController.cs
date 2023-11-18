@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         {
             var offset = _heldTool.HoldOffset;
             _heldTool.transform.localPosition = _camera.transform.right * offset.x + _camera.transform.up * offset.y + _camera.transform.forward * offset.z;
-            _heldTool.transform.rotation = Quaternion.LookRotation(_camera.transform.forward, _camera.transform.right);
+            _heldTool.transform.rotation = Quaternion.LookRotation(_camera.transform.forward, _camera.transform.up);
         }
     }
 
