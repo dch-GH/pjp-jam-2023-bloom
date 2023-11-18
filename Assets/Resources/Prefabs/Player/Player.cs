@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
             Oxygen -= OxygenDrainAmount;
             foreach (var crop in PlantedCrops)
             {
-                if (crop.Id == CropId.WhiteFlower)
+                if (crop.Id == CropId.BluePetal)
                 {
                     if (Oxygen < 1.0f)
                         Oxygen += 0.03f;

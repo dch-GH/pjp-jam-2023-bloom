@@ -42,10 +42,9 @@ public class StockMarket : MonoBehaviour
     private void UpdateStockMarket()
     {
         Market = new Dictionary<CropId, double[]> {
-            { CropId.WhiteFlower, GenerateStockPrices(_marketDays) },
-            { CropId.Corn, GenerateStockPrices(_marketDays) },
-            { CropId.Wheat, GenerateStockPrices(_marketDays) },
-            { CropId.Tomato, GenerateStockPrices(_marketDays) },
+            { CropId.BluePetal, GenerateStockPrices(_marketDays) },
+            { CropId.PurplePetal, GenerateStockPrices(_marketDays) },
+            { CropId.WhitePetal, GenerateStockPrices(_marketDays) },
             };
     }
 

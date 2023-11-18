@@ -100,7 +100,10 @@ public class PlayerController : MonoBehaviour
         if (_input.Drop && _heldTool != null)
         {
             if (_heldTool.OnDrop(this))
+            {
+                _heldTool.transform.position = _camera.transform.position + _camera.transform.forward * 0.85f;
                 _heldTool = null;
+            }
         }
 
     }
