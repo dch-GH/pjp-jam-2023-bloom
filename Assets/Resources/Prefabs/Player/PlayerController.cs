@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Camera _camera;
+    public Camera Camera => _camera;
 
     [SerializeField]
     private float _walkSpeed = 5;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _viewAngles;
 
     private Ray _aimRay;
+    public Ray AimRay => _aimRay;
 
     //nullable
     private Tool _heldTool;
@@ -68,7 +70,13 @@ public class PlayerController : MonoBehaviour
 
         if (_input.Pickup)
         {
-            if (Physics.SphereCast(_aimRay.origin, radius: 2, _aimRay.direction, out var hit, 500, layerMask: LayerMask.GetMask("Tool")))
+            if (_heldTool != null)
+            {
+                _heldTool.OnUse(this, _aimRay);
+                return;
+            }
+
+            if (Physics.SphereCast(_aimRay.origin, radius: 0.25f, _aimRay.direction, out var hit, 50, layerMask: LayerMask.GetMask(Layers.Tool)))
             {
                 print(hit);
                 var other = hit.collider.gameObject;
@@ -110,5 +118,6 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.white;
         Gizmos.DrawRay(_aimRay);
+        Gizmos.DrawSphere(_aimRay.origin + _aimRay.direction * 1.5f, 0.25f);
     }
 }

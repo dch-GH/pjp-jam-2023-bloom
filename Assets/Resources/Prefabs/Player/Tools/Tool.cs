@@ -1,5 +1,7 @@
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.Experimental.Rendering;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Collider), typeof(Rigidbody))]
 public abstract class Tool : MonoBehaviour
@@ -8,6 +10,8 @@ public abstract class Tool : MonoBehaviour
 
     private Collider _collider;
     private Rigidbody _rb;
+
+    public const float SphereCastSize = 0.25f;
 
     void Awake()
     {
@@ -30,5 +34,26 @@ public abstract class Tool : MonoBehaviour
         _rb.isKinematic = false;
         _rb.AddForce(Vector3.down * 0.5f);
         return true;
+    }
+
+    /// <summary>
+    /// Called when the tool is in the player's hands and they click.
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns></returns>
+    public virtual bool OnUse(PlayerController player, Ray aimRay)
+    {
+        return true;
+    }
+
+    protected bool TryGetInteractable(PlayerController player, out RaycastHit hit, string colliderLayer, float radius = SphereCastSize, float maxDistance = 5, bool includeTrigger = false)
+    {
+        if (Physics.SphereCast(player.AimRay.origin, radius: SphereCastSize, player.AimRay.direction, out var info, maxDistance, layerMask: LayerMask.GetMask(colliderLayer)))
+        {
+            hit = info;
+            return true;
+        }
+        hit = new RaycastHit();
+        return false;
     }
 }
