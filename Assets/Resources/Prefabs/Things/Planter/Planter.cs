@@ -87,7 +87,7 @@ public class Planter : MonoBehaviour
         var box = Instantiate(_produceBoxPrefab, transform.position + Vector3.up * 0.75f, Quaternion.identity);
         if (box.TryGetComponent<ProduceBox>(out var produce))
         {
-            produce.Money = (int)StockMarket.Instance.GetStockPrice(_plantedCrop.Id);
+            produce.Crop = _plantedCrop.Id;
             RemoveCrop();
         }
     }

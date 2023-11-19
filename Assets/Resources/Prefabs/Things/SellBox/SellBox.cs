@@ -7,6 +7,7 @@ public class SellBox : MonoBehaviour
 
     public void OnSell(ProduceBox box)
     {
+        Player.Instance.Money += (int)StockMarket.Instance.GetStockPrice(box.Id);
         _particles.Stop();
         _particles.Play();
     }
