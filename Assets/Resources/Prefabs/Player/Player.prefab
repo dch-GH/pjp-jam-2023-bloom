@@ -76,7 +76,7 @@ MonoBehaviour:
   _controller: {fileID: 6508117156947181233}
   _camera: {fileID: 0}
   _walkSpeed: 0.6
-  _deAccel: 4
+  _deAccel: 7
   _eyePosition: 0.85
   _mouseSensitivity: 230
 --- !u!114 &7133087227641325650
