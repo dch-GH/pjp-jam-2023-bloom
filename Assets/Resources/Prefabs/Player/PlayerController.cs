@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     //nullable
     private Tool _heldTool;
 
-    private float _interactionDistance = 15f;
+    public const float InteractionDistance = 15f;
     private float _interactSphereRadius = 0.35f;
     private float _toolDropOffset = 0.95f;
 
@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInputs()
     {
-        _aimRay = new Ray(_camera.transform.position, _camera.transform.forward * _interactionDistance);
+        _aimRay = new Ray(_camera.transform.position, _camera.transform.forward * InteractionDistance);
         if (_input.Primary)
         {
             var mask = LayerMask.GetMask(Layers.Tool) & ~LayerMask.GetMask(Layers.Player);
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
             // try to find a tool to pickup
             else if (Physics.SphereCast(_aimRay.origin, radius: _interactSphereRadius, _aimRay.direction, out var vagueHit, 50, layerMask: mask))
             {
-                var didPreciseHit = Physics.Raycast(_aimRay.origin, _aimRay.direction, out var preciseHit, maxDistance: _interactionDistance, layerMask: mask);
+                var didPreciseHit = Physics.Raycast(_aimRay.origin, _aimRay.direction, out var preciseHit, maxDistance: InteractionDistance, layerMask: mask);
                 var other = didPreciseHit ? preciseHit.collider.gameObject : vagueHit.collider.gameObject;
                 if (other != null && other.TryGetComponent<Tool>(out var tool))
                 {

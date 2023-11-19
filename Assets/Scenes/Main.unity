@@ -1036,7 +1036,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.126, y: 0}
+  m_AnchoredPosition: {x: 0.185, y: 0}
   m_SizeDelta: {x: 1.95, y: 0.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &350558267
@@ -2411,7 +2411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8089045684163810905, guid: 6104a0083234acd44a42c9e7e04669fb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.27
+      value: 5.63
       objectReference: {fileID: 0}
     - target: {fileID: 8089045684163810905, guid: 6104a0083234acd44a42c9e7e04669fb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3388,6 +3388,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 153cd48f70fe5454e9cb341a3fccb775, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1476351124}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 153cd48f70fe5454e9cb341a3fccb775, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1476351127}
   m_SourcePrefab: {fileID: 100100000, guid: 153cd48f70fe5454e9cb341a3fccb775, type: 3}
 --- !u!1 &1476351122 stripped
 GameObject:
@@ -3420,6 +3423,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.8451436, y: 2.3111289, z: 1.6454905}
   m_Center: {x: 0, y: -0.15556443, z: 0.17725474}
+--- !u!114 &1476351127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476351122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e7ae30d346605478702afa0b59f781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BuyPoint: {x: 0, y: 0, z: -3}
+  BluepetalSeedsPrefab: {fileID: 2235377996416386552, guid: b01daecf70ad85a40b7a4b922ec94412, type: 3}
+  PurplepetalSeedsPrefab: {fileID: 2235377996416386552, guid: 353e39dd8f8bab849ba23e2db479e363, type: 3}
+  WhitepetalSeedsPrefab: {fileID: 2235377996416386552, guid: 5f50977b2f7b682448773e6a9954b8f0, type: 3}
+  WateringCanPrefab: {fileID: 375369647320920826, guid: 8a072077c8e5eed4599a0dbd23774d2b, type: 3}
+  RadiationShieldPrefab: {fileID: 375369647320920826, guid: 8a072077c8e5eed4599a0dbd23774d2b, type: 3}
+  Sound: {fileID: 2017603084}
 --- !u!1001 &1477257737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5855,7 +5877,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1682286461245270815, guid: 55ce4463958c45d439aca37211801364, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.153
+      value: -8.01
       objectReference: {fileID: 0}
     - target: {fileID: 1682286461245270815, guid: 55ce4463958c45d439aca37211801364, type: 3}
       propertyPath: m_LocalPosition.y
