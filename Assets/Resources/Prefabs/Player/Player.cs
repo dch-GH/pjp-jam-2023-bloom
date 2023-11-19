@@ -22,6 +22,16 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit(0);
+        }
+
+        if (Input.GetKey(KeyCode.G))
+        {
+            Die();
+        }
+
         if (_oxygen <= 0.0f)
         {
             Die();

@@ -26,6 +26,7 @@ public class RadStormEventManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        Debug.Log(Time.time - _lastRadStormTime);
         if (Time.time - _lastRadStormTime >= _radStormCooldown && !_radStormActive)
         {
             Debug.Log("Rolling for radstorm...");
@@ -45,7 +46,6 @@ public class RadStormEventManager : MonoBehaviour
         if (_radStormActive)
         {
             _radStormtimer -= Time.deltaTime;
-            Debug.Log(string.Format("Radstorm timer: {0}", _radStormtimer));
             if ((int)_radStormtimer == 0)
             {
                 MusicPlayer.Instance.PlaySong(MusicPlayer.Instance.NormalMusic);

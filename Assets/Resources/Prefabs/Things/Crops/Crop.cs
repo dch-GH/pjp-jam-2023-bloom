@@ -33,16 +33,22 @@ public class Crop : MonoBehaviour
     private float _growth;
     private float _maxGrowth = 1.0f;
     public float GrowthPercentage => _growth;
+    public bool FullyGrown => _growth >= _maxGrowth;
     private float _sinceGrowTime;
     private float _growthAmount = 0.035f;
 
     // range of 0.0f - 1.0f
     private float _waterLevel;
+    private float _waterAbsorbAmount = 0.02f;
     public float WaterPercentage => _waterLevel;
     private float _droughtDamageTime;
     public Action OnGrown;
     public Action OnDie;
     private bool _canGrowAnymore = true;
+    public const int MaxAge = 60;
+    private int _currentAge;
+    public int Age => _currentAge;
+    private float _lifeTimeTick;
 
     void Awake()
     {
@@ -52,6 +58,16 @@ public class Crop : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (FullyGrown && Time.time - _lifeTimeTick >= 1.0f)
+        {
+            _currentAge += 1;
+            if (_currentAge >= MaxAge)
+            {
+                Die();
+            }
+            _lifeTimeTick = Time.time;
+        }
+
         HandleGrowth();
         if (_waterLevel < _requiredWaterLevel && Time.time - _droughtDamageTime >= _droughtDamageRateSeconds)
         {
@@ -86,7 +102,7 @@ public class Crop : MonoBehaviour
         {
             _growth += _growthAmount;
             _sinceGrowTime = Time.time;
-
+            _waterLevel -= _waterAbsorbAmount;
             Debug.Log($"{Id.ToString()} Growth value: {_growth}");
         }
     }

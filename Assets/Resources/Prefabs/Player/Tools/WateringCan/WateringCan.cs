@@ -3,7 +3,7 @@ using UnityEngine;
 public class WateringCan : Tool
 {
     [SerializeField]
-    private float _waterAmount = 5;
+    private float _waterAmount = 0.05f;
 
     public override bool OnPrimaryUse(PlayerController player, Ray aimRay)
     {

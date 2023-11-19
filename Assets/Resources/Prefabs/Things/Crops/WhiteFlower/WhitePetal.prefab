@@ -115,7 +115,7 @@ MonoBehaviour:
   _fullyGrownModel: {fileID: 374318984623216608}
   _baseGrowthRateSeconds: 2.5
   _droughtDamageRateSeconds: 8
-  _droughtDamage: 0.3
+  _droughtDamage: 0.07
 --- !u!1001 &716266902689409713
 PrefabInstance:
   m_ObjectHideFlags: 0
