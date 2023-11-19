@@ -79,6 +79,7 @@ MonoBehaviour:
   _deAccel: 7
   _eyePosition: 0.85
   _mouseSensitivity: 230
+  _hud: {fileID: 0}
 --- !u!114 &7133087227641325650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 439190483e240dd4d91d73dd829a1116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Money: 0
-  OxygenDrainAmount: 0.05
-  Oxygen: 1
+  Money: 40
+  OxygenDrainAmount: 0.02
   PlantedCrops: []
+  Dead: 0

@@ -18,7 +18,8 @@ public class StockPriceUI : MonoBehaviour
     {
         var price = StockMarket.Instance.GetStockPrice(_crop);
         _label.text = string.Format("$ {0}", (int)price);
-        var remapped = math.remap(price, 0, 1000f, 0, 1);
+        // this isn't very accurate but looks generally ok
+        var remapped = math.remap(0, 150, 0, 1, price);
         _slider.value = (float)remapped;
     }
 

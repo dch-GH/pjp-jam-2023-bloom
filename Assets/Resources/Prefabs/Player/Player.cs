@@ -4,7 +4,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player Instance => GameObject.FindFirstObjectByType<Player>();
-    public int Money;
+    public int Money = 40;
     public float OxygenDrainAmount = 0.05f;
     private float _oxygen = 1f;
     public float Oxygen => _oxygen;

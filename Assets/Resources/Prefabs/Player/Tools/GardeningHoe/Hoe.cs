@@ -37,8 +37,8 @@ public class Hoe : Tool
             if (!planter.HasCrop)
                 return false;
 
-            planter.Harvest();
-            return base.OnSecondaryUse(player, aimRay);
+            if (planter.Harvest())
+                return base.OnSecondaryUse(player, aimRay);
         }
 
         return false;

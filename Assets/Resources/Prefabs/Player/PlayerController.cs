@@ -1,6 +1,4 @@
-using Palmmedia.ReportGenerator.Core.Reporting.Builders;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerInput))]

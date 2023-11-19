@@ -43,6 +43,9 @@ public class Planter : MonoBehaviour
     public bool HasRadiationShield => _hasRadiationShield;
     private float _lastRadiationDamageTime;
 
+    [SerializeField]
+    private SoundCollection _sound;
+
     void Update()
     {
         if (_state == PlanterState.Dirt)
@@ -62,9 +65,13 @@ public class Planter : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!HasCrop)
+            return;
+
         if (RadStormEventManager.Instance.RadStormHappening && !HasRadiationShield && Time.time - _lastRadiationDamageTime >= 5)
         {
-            Crop.TakeDamage(0.08f);
+            Crop.TakeDamage(0.04f);
+            _lastRadiationDamageTime = Time.time;
         }
     }
 
@@ -79,6 +86,9 @@ public class Planter : MonoBehaviour
             return;
 
         _plantedCrop = crop;
+        _plantedCrop.OnGrown += OnCropGrown;
+        _plantedCrop.OnDie += OnCropDie;
+
         Player.Instance.PlantedCrops.Add(_plantedCrop);
         _plantedCrop.transform.position += _cropOffset;
         _worldPanelGroup.alpha = 1;
@@ -89,6 +99,7 @@ public class Planter : MonoBehaviour
     {
         if (_plantedCrop != null)
         {
+            _plantedCrop.OnGrown -= OnCropGrown;
             Player.Instance.PlantedCrops.Remove(_plantedCrop);
             Destroy(_plantedCrop.gameObject);
             _worldPanelGroup.alpha = 0;
@@ -96,14 +107,19 @@ public class Planter : MonoBehaviour
         SetState(PlanterState.Dirt);
     }
 
-    public void Harvest()
+    public bool Harvest()
     {
-        var box = Instantiate(_produceBoxPrefab, transform.position + Vector3.up * 0.75f, Quaternion.identity);
-        if (box.TryGetComponent<ProduceBox>(out var produce))
+        if (_plantedCrop != null && _plantedCrop.GrowthPercentage >= 1.0f)
         {
-            produce.Crop = _plantedCrop.Id;
-            RemoveCrop();
+            var box = Instantiate(_produceBoxPrefab, transform.position + Vector3.up * 0.75f, Quaternion.identity);
+            if (box.TryGetComponent<ProduceBox>(out var produce))
+            {
+                produce.Crop = _plantedCrop.Id;
+                RemoveCrop();
+                return true;
+            }
         }
+        return false;
     }
 
     public void PlaceRadShield()
@@ -153,5 +169,20 @@ public class Planter : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position + _cropOffset, 0.25f);
+    }
+
+    private void OnCropGrown()
+    {
+        _sound.PlayRandom();
+    }
+
+    private void OnCropDie()
+    {
+        _plantedCrop.OnGrown -= OnCropGrown;
+        _plantedCrop.OnDie -= OnCropDie;
+        Player.Instance.PlantedCrops.Remove(_plantedCrop);
+        Destroy(_plantedCrop.gameObject);
+        _worldPanelGroup.alpha = 0;
+        SetState(PlanterState.Dirt);
     }
 }

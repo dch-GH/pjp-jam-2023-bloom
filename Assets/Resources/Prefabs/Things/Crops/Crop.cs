@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Crop : MonoBehaviour
@@ -13,7 +14,7 @@ public class Crop : MonoBehaviour
 
     [SerializeField]
     private float _baseGrowthRateSeconds = 5;
-    private float _requiredWaterLevel = 0.6f;
+    private float _requiredWaterLevel = 0.5f;
     private float _maxWaterLevel = 1.0f;
 
     [SerializeField]
@@ -26,6 +27,7 @@ public class Crop : MonoBehaviour
 
     // range of 0.0f - 1.0f
     private float _health = 1.0f;
+    public float HealthPercentage => _health;
 
     // range of 0.0f - 1.0f
     private float _growth;
@@ -38,6 +40,9 @@ public class Crop : MonoBehaviour
     private float _waterLevel;
     public float WaterPercentage => _waterLevel;
     private float _droughtDamageTime;
+    public Action OnGrown;
+    public Action OnDie;
+    private bool _canGrowAnymore = true;
 
     void Awake()
     {
@@ -47,10 +52,25 @@ public class Crop : MonoBehaviour
 
     void FixedUpdate()
     {
+        HandleGrowth();
+        if (_waterLevel < _requiredWaterLevel && Time.time - _droughtDamageTime >= _droughtDamageRateSeconds)
+        {
+            TakeDamage(_droughtDamage);
+            _droughtDamageTime = Time.time;
+        }
+    }
+
+    private void HandleGrowth()
+    {
+        if (!_canGrowAnymore)
+            return;
+
         if (_growth >= _maxGrowth)
         {
             _seedlingModel.SetActive(false);
             _fullyGrownModel.SetActive(true);
+            _canGrowAnymore = false;
+            OnGrown?.Invoke();
             return;
         }
 
@@ -60,12 +80,6 @@ public class Crop : MonoBehaviour
         }
         else
             _seedlingModel.SetActive(false);
-
-        if (_waterLevel < _requiredWaterLevel && Time.time - _droughtDamageTime >= _droughtDamageRateSeconds)
-        {
-            TakeDamage(_droughtDamage);
-            _droughtDamageTime = Time.time;
-        }
 
         var growthRate = _baseGrowthRateSeconds * GrowthRateMultiplier;
         if (Time.time - _sinceGrowTime >= growthRate)
@@ -79,13 +93,12 @@ public class Crop : MonoBehaviour
 
     private void Die()
     {
-
+        OnDie?.Invoke();
     }
 
     public void TakeDamage(float amount)
     {
         _health -= amount;
-        _growth -= amount;
         Debug.Log($"Took damage :{amount}, health is {_health}");
         if (_health <= 0)
         {
@@ -93,10 +106,15 @@ public class Crop : MonoBehaviour
         }
     }
 
-    public void Water(float amount)
+    public bool Water(float amount)
     {
+        if (_waterLevel >= _maxWaterLevel)
+            return false;
+
         _waterLevel += amount;
         if (_waterLevel > _maxWaterLevel)
             _waterLevel = _maxWaterLevel;
+
+        return true;
     }
 }

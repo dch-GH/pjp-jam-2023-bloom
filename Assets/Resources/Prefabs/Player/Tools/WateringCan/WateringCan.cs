@@ -21,9 +21,11 @@ public class WateringCan : Tool
             if (!planter.HasCrop)
                 return false;
 
-            planter.Crop.Water(_waterAmount);
-            Debug.Log($"Watering crop: {planter.Crop}");
-            return base.OnPrimaryUse(player, aimRay);
+            if (planter.Crop.Water(_waterAmount))
+            {
+                Debug.Log($"Watering crop: {planter.Crop}");
+                return base.OnPrimaryUse(player, aimRay);
+            }
         }
 
         return false;
