@@ -21,15 +21,12 @@ public class PlanterUIController : MonoBehaviour
 
     void Update()
     {
-        if (_planter == null)
+        if (_planter == null || !_planter.HasCrop)
             return;
 
         _waterMeter.value = _planter.Crop.WaterPercentage;
         _healthMeter.value = _planter.Crop.HealthPercentage;
-        if (_planter.HasCrop)
-        {
-            _ageMeter.value = _planter.Crop.Age;
-            _growthMeter.value = _planter.Crop.GrowthPercentage;
-        }
+        _ageMeter.value = _planter.Crop.Age;
+        _growthMeter.value = _planter.Crop.GrowthPercentage;
     }
 }
