@@ -2155,10 +2155,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3635831792063425566, guid: bc8084ee54c1ea84dba98bf96527c39d, type: 3}
-      propertyPath: _marketUpdateRateSeconds
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3782026121925728080, guid: bc8084ee54c1ea84dba98bf96527c39d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

@@ -9,11 +9,11 @@ public class StockMarket : MonoBehaviour
     public Dictionary<CropId, double[]> Market;
 
     [SerializeField]
-    private int _marketDays = 7;
+    private int _marketDays;
     private int _currentMarketDay;
 
     [SerializeField]
-    private float _marketUpdateRateSeconds = 7;
+    private float _marketUpdateRateSeconds;
     private float _lastMarketUpdateTime;
 
     [SerializeField]
@@ -31,7 +31,6 @@ public class StockMarket : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(Time.time);
         if (Time.time - _lastMarketUpdateTime >= _marketUpdateRateSeconds)
         {
             _marketDays += 1;

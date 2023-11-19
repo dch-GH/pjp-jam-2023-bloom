@@ -12,7 +12,7 @@ public class SeedBag : Tool
     [SerializeField]
     private int _numSeeds = 5;
 
-    public override bool OnUse(PlayerController player, Ray aimRay)
+    public override bool OnPrimaryUse(PlayerController player, Ray aimRay)
     {
         if (!TryGetInteractable(player, out var hit, Layers.Hitbox))
             return false;
@@ -22,22 +22,27 @@ public class SeedBag : Tool
 
         if (hit.collider.gameObject.TryGetComponent<InteractionHitbox>(out var interact) && interact.Root.TryGetComponent<Planter>(out var planter))
         {
-            if (planter.HasCrop)
+            if (planter.HasCrop || !planter.Tilled)
                 return false;
 
             var crop = Instantiate(_cropPrefab, planter.transform.position, Quaternion.identity).GetComponent<Crop>();
             planter.PlantCrop(crop);
-            Debug.Log(crop);
+            base.OnPrimaryUse(player, aimRay);
             _numSeeds -= 1;
             if (_numSeeds <= 0)
             {
-                Destroy(gameObject);
+                Destroy(gameObject, 0.25f);
                 return true;
             }
 
             return true;
         }
 
+        return false;
+    }
+
+    public override bool OnSecondaryUse(PlayerController player, Ray aimRay)
+    {
         return false;
     }
 }

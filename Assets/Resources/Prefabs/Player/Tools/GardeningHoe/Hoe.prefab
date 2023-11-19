@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoldOffset: {x: 0.24, y: 0.3, z: 0.41}
+  _useRateSeconds: 0.5
+  _sounds: {fileID: 8399987854404902452}
 --- !u!54 &2034023173007439212
 Rigidbody:
   m_ObjectHideFlags: 0

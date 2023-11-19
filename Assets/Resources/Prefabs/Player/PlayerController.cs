@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInput))]
@@ -34,6 +35,10 @@ public class PlayerController : MonoBehaviour
     //nullable
     private Tool _heldTool;
 
+    private float _interactionDistance = 15f;
+    private float _interactSphereRadius = 0.35f;
+    private float _toolDropOffset = 0.85f;
+
     void Awake()
     {
         if (Instance == null)
@@ -63,6 +68,8 @@ public class PlayerController : MonoBehaviour
         _camera.transform.position = transform.position + Vector3.up * _eyePosition;
         _camera.transform.rotation = Quaternion.Euler(_viewAngles);
 
+        HandleInputs();
+
         if (_heldTool != null)
         {
             var offset = _heldTool.HoldOffset;
@@ -71,24 +78,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void HandleInputs()
     {
-        _aimRay = new Ray(_camera.transform.position, _camera.transform.forward * 500);
-
-        HandleMovement();
-
-        if (_input.Pickup)
+        _aimRay = new Ray(_camera.transform.position, _camera.transform.forward * _interactionDistance);
+        if (_input.Primary)
         {
             if (_heldTool != null)
             {
-                _heldTool.OnUse(this, _aimRay);
+                _heldTool.OnPrimaryUse(this, _aimRay);
+                // use the tool, dont try to pick up a tool
                 return;
             }
-
-            if (Physics.SphereCast(_aimRay.origin, radius: 0.25f, _aimRay.direction, out var hit, 50, layerMask: LayerMask.GetMask(Layers.Tool)))
+            // try to find a tool to pickup
+            else if (Physics.SphereCast(_aimRay.origin, radius: _interactSphereRadius, _aimRay.direction, out var vagueHit, 50, layerMask: LayerMask.GetMask(Layers.Tool)))
             {
-                print(hit);
-                var other = hit.collider.gameObject;
+                var didPreciseHit = Physics.Raycast(_aimRay, out var preciseHit, LayerMask.GetMask(Layers.Tool));
+                var other = didPreciseHit ? preciseHit.collider.gameObject : vagueHit.collider.gameObject;
                 if (other != null && other.TryGetComponent<Tool>(out var tool) && _heldTool == null)
                 {
                     if (tool.OnPickup(this))
@@ -97,15 +102,24 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (_input.Secondary && _heldTool != null)
+        {
+            _heldTool.OnSecondaryUse(this, _aimRay);
+        }
+
         if (_input.Drop && _heldTool != null)
         {
             if (_heldTool.OnDrop(this))
             {
-                _heldTool.transform.position = _camera.transform.position + _camera.transform.forward * 0.85f;
+                _heldTool.transform.position = _camera.transform.position + _camera.transform.forward * _toolDropOffset;
                 _heldTool = null;
             }
         }
+    }
 
+    private void FixedUpdate()
+    {
+        HandleMovement();
     }
 
     private void HandleMovement()

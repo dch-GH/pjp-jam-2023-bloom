@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2652197054955098849}
   - component: {fileID: 4686709110078232062}
   - component: {fileID: 1249045476384122023}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WateringCan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,8 +50,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoldOffset: {x: 0.29, y: 0.31, z: 0.77}
-  _waterAmount: 5
-  _coolDownSeconds: 10
+  _useRateSeconds: 0.25
+  _sounds: {fileID: 1249045476384122023}
+  _waterAmount: 0.05
 --- !u!54 &4645866163760456176
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -262,6 +263,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6466980f0ecc23e4b95b091319bc3afb, type: 3}
       propertyPath: m_Name
       value: WateringCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6466980f0ecc23e4b95b091319bc3afb, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

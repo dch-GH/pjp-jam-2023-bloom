@@ -5,8 +5,7 @@ public class WateringCan : Tool
     [SerializeField]
     private float _waterAmount = 5;
 
-
-    public override bool OnUse(PlayerController player, Ray aimRay)
+    public override bool OnPrimaryUse(PlayerController player, Ray aimRay)
     {
         if (!base.CanUse(player, aimRay))
             return false;
@@ -24,9 +23,14 @@ public class WateringCan : Tool
 
             planter.Crop.Water(_waterAmount);
             Debug.Log($"Watering crop: {planter.Crop}");
-            return base.OnUse(player, aimRay);
+            return base.OnPrimaryUse(player, aimRay);
         }
 
+        return false;
+    }
+
+    public override bool OnSecondaryUse(PlayerController player, Ray aimRay)
+    {
         return false;
     }
 }

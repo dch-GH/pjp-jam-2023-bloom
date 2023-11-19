@@ -7,11 +7,14 @@ public abstract class Tool : MonoBehaviour
     private Collider _collider;
     private Rigidbody _rb;
 
-    public const float SphereCastSize = 0.25f;
+    public const float SphereCastSize = 0.35f;
 
     [SerializeField]
     private float _useRateSeconds = 1.0f;
     private float _lastUseTime;
+
+    [SerializeField]
+    protected SoundCollection _sounds;
 
     void Awake()
     {
@@ -41,9 +44,16 @@ public abstract class Tool : MonoBehaviour
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
-    public virtual bool OnUse(PlayerController player, Ray aimRay)
+    public virtual bool OnPrimaryUse(PlayerController player, Ray aimRay)
     {
         _lastUseTime = Time.time;
+        _sounds.PlayRandom();
+        return true;
+    }
+
+    public virtual bool OnSecondaryUse(PlayerController player, Ray aimRay)
+    {
+        _sounds.PlayRandom();
         return true;
     }
 
@@ -52,7 +62,7 @@ public abstract class Tool : MonoBehaviour
         return Time.time - _lastUseTime >= _useRateSeconds;
     }
 
-    protected bool TryGetInteractable(PlayerController player, out RaycastHit hit, string colliderLayer, float radius = SphereCastSize, float maxDistance = 5, bool includeTrigger = false)
+    protected bool TryGetInteractable(PlayerController player, out RaycastHit hit, string colliderLayer, float radius = SphereCastSize, float maxDistance = 8, bool includeTrigger = false)
     {
         if (Physics.SphereCast(player.AimRay.origin, radius: SphereCastSize, player.AimRay.direction, out var info, maxDistance, layerMask: LayerMask.GetMask(colliderLayer)))
         {
