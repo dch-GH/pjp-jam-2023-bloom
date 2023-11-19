@@ -21,6 +21,9 @@ public class HudController : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _radStormText;
 
+    [SerializeField]
+    private TextMeshProUGUI _moneyEarned;
+
     public void SetInteractionText(string text)
     {
         _interactionPopup.text = text;
@@ -48,6 +51,8 @@ public class HudController : MonoBehaviour
         _interactionPopup.text = string.Empty;
         _rightClickTo.text = string.Empty;
         _leftClickTo.text = string.Empty;
+
+        _moneyEarned.text = string.Format("Money earned: ${0}", Player.Instance.Money);
     }
 
 }
