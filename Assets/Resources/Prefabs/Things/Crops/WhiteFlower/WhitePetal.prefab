@@ -110,10 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Id: 1
-  GrowthRateModifier: 1
+  GrowthRateMultiplier: 1
   _seedlingModel: {fileID: 7126143448479270634}
   _fullyGrownModel: {fileID: 374318984623216608}
-  _maxGrowth: 100
   _baseGrowthRateSeconds: 5
   _requiredWaterLevel: 0.25
   _droughtDamageRateSeconds: 7
@@ -168,7 +167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 253d70aee43970142bb3a85f8f99b92d, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 253d70aee43970142bb3a85f8f99b92d, type: 3}
       propertyPath: m_Name
@@ -180,7 +179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 253d70aee43970142bb3a85f8f99b92d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

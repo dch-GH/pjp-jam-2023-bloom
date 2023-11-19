@@ -1066,7 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b4dc503f01818f4b8989e885ed9f420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cropOffset: {x: 0, y: 0.2, z: -0.03}
+  _cropOffset: {x: 0, y: 0.26, z: -0.03}
   _state: 0
   _untilledPlot: {fileID: 6923042899435577655}
   _tilledPlot: {fileID: 960598595104647336}
