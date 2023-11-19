@@ -113,7 +113,7 @@ MonoBehaviour:
   GrowthRateMultiplier: 1
   _seedlingModel: {fileID: 7126143448479270634}
   _fullyGrownModel: {fileID: 374318984623216608}
-  _baseGrowthRateSeconds: 3
+  _baseGrowthRateSeconds: 2.5
   _droughtDamageRateSeconds: 8
   _droughtDamage: 0.3
 --- !u!1001 &716266902689409713
