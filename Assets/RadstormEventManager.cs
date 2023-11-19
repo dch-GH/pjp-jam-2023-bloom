@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RadStormEventManager : MonoBehaviour
 {
-    public static RadStormEventManager Instance => FindFirstObjectByType<RadStormEventManager>();
+    public static RadStormEventManager Instance;
 
     [SerializeField]
     private Light _light;
@@ -27,6 +27,7 @@ public class RadStormEventManager : MonoBehaviour
 
     void Awake()
     {
+        Instance = this;
         _timeSinceAwake = 0;
     }
 

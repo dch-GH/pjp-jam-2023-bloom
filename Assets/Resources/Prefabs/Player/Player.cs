@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public static Player Instance => GameObject.FindFirstObjectByType<Player>();
+    public static Player Instance;
     public int Money = 40;
     public float OxygenDrainAmount = 0.05f;
     private float _oxygen = 1.0f;
@@ -11,20 +11,26 @@ public class Player : MonoBehaviour
     public List<Crop> PlantedCrops;
     private float _oxygenTickRateSeconds = 6;
     private float _lastOxygenTick;
-
     public bool Dead;
 
     void Awake()
     {
+        Instance = this;
+
         Dead = false;
         PlantedCrops = new List<Crop>();
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape))
         {
-            Application.Quit(0);
+            Debug.LogWarning(EscapeMenuController.Instance);
+            var escMenu = EscapeMenuController.Instance;
+            escMenu.Open = !escMenu.Open;
+            var canvas = escMenu.GetComponent<CanvasGroup>();
+            canvas.alpha = escMenu.Open ? 1.0f : 0.0f;
+            Cursor.lockState = escMenu.Open ? CursorLockMode.None : CursorLockMode.Locked;
         }
 
         if (_oxygen <= 0.0f)

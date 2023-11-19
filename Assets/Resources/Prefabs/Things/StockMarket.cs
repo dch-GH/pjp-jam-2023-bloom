@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 public class StockMarket : MonoBehaviour
 {
-    public static StockMarket Instance => GameObject.FindFirstObjectByType<StockMarket>();
+    public static StockMarket Instance;
     private System.Random _random;
     public Dictionary<CropId, double[]> Market;
 
@@ -18,6 +19,11 @@ public class StockMarket : MonoBehaviour
 
     [SerializeField]
     private AudioSource _pricesUpdateSound;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {

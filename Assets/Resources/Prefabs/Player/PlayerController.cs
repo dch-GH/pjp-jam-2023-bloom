@@ -44,8 +44,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
-            Instance = this;
+        Instance = this;
         _input = GetComponent<PlayerInput>();
     }
 
@@ -58,11 +57,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
-
         _hud.DeathScreen.SetActive(Player.Instance.Dead);
         if (Player.Instance.Dead)
         {

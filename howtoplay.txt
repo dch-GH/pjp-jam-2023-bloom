@@ -1,0 +1,25 @@
+How to play:
+- Left-click to pickup tools/produce boxes.
+- Left-click with a tool in hand to use it.
+- Press Q to drop tools.
+- Right-click with the hoe to harvest.
+- Look at the shop (3rd monitor) and press a number row key to buy an item.
+
+You are on a space station and you need to grow plants!
+The "Bluepetal" plants produce breathable oxygen. These are your only source of air.
+The "Purplepetal" and "Whitepetal" do not produce oxygen!
+
+There is a stock market on the middle display. These are the prices you can buy/sell each plants at market price.
+The "Bluepetal" usually doesn't sell for very much, try to maximize farming these as much as possible!
+
+Basic guide:
+- Till a crop with the hoe and plant a seed with a seed bag.
+- Water it with a watering can. You can buy more water at the shop.
+- As the plant grows, it absorbs its water.
+- Once a plant is fully grown, it will age. Once fully aged, it will wilt and die. Harvest it and sell it before then!
+- Harvesting a crop drops a produce box, pick up the produce box and drop it into the green bin to sell it. Try to sell it when the price is highest!
+- Crops need above %50 water or else they'll take damage.
+- Every so often the station is struck by a radiation storm, the plants won't survive long in one.
+- You can buy and place a radiation shield onto a crop, they are one-time use and will fall apart if the crop dies or is harvested.
+- Crops do not regenerate health.
+- The stock market refreshes every minute.

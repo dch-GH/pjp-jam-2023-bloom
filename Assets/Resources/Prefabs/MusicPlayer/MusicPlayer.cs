@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MusicPlayer : MonoBehaviour
 {
-    public static MusicPlayer Instance => FindFirstObjectByType<MusicPlayer>();
+    public static MusicPlayer Instance;
 
     public AudioSource Source;
     public AudioClip NormalMusic;
@@ -10,6 +10,7 @@ public class MusicPlayer : MonoBehaviour
 
     void Awake()
     {
+        Instance = this;
         PlaySong(NormalMusic);
     }
 
