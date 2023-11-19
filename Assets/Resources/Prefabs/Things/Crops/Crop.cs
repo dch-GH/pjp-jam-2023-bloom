@@ -58,7 +58,7 @@ public class Crop : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (FullyGrown && Time.time - _lifeTimeTick >= 1.0f)
+        if (FullyGrown && Time.time - _lifeTimeTick >= 4.0f)
         {
             _currentAge += 0.05f;
             if (_currentAge >= MaxAge)

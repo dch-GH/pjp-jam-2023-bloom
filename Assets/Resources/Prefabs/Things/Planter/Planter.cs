@@ -100,9 +100,15 @@ public class Planter : MonoBehaviour
         if (_plantedCrop != null)
         {
             _plantedCrop.OnGrown -= OnCropGrown;
+            _plantedCrop.OnDie -= OnCropDie;
             Player.Instance.PlantedCrops.Remove(_plantedCrop);
             Destroy(_plantedCrop.gameObject);
             _worldPanelGroup.alpha = 0;
+            if (_hasRadiationShield)
+            {
+                _hasRadiationShield = false;
+                _radShieldObject.SetActive(_hasRadiationShield);
+            }
         }
         SetState(PlanterState.Dirt);
     }
@@ -178,11 +184,6 @@ public class Planter : MonoBehaviour
 
     private void OnCropDie()
     {
-        _plantedCrop.OnGrown -= OnCropGrown;
-        _plantedCrop.OnDie -= OnCropDie;
-        Player.Instance.PlantedCrops.Remove(_plantedCrop);
-        Destroy(_plantedCrop.gameObject);
-        _worldPanelGroup.alpha = 0;
-        SetState(PlanterState.Dirt);
+        RemoveCrop();
     }
 }

@@ -27,11 +27,6 @@ public class Player : MonoBehaviour
             Application.Quit(0);
         }
 
-        if (Input.GetKey(KeyCode.G))
-        {
-            Die();
-        }
-
         if (_oxygen <= 0.0f)
         {
             Die();
