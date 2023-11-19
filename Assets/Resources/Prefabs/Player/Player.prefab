@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5731949069315456151}
   - component: {fileID: 7133087227641325650}
   - component: {fileID: 2132697405114455352}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -92,9 +92,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WishDir: {x: 0, y: 0}
-  Pickup: 0
+  Primary: 0
+  Secondary: 0
   Drop: 0
-  Use: 0
 --- !u!114 &2132697405114455352
 MonoBehaviour:
   m_ObjectHideFlags: 0

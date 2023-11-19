@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInput))]
@@ -83,6 +82,8 @@ public class PlayerController : MonoBehaviour
         _aimRay = new Ray(_camera.transform.position, _camera.transform.forward * _interactionDistance);
         if (_input.Primary)
         {
+            var mask = LayerMask.GetMask(Layers.Tool) & ~LayerMask.GetMask(Layers.Player);
+
             if (_heldTool != null)
             {
                 _heldTool.OnPrimaryUse(this, _aimRay);
@@ -90,11 +91,11 @@ public class PlayerController : MonoBehaviour
                 return;
             }
             // try to find a tool to pickup
-            else if (Physics.SphereCast(_aimRay.origin, radius: _interactSphereRadius, _aimRay.direction, out var vagueHit, 50, layerMask: LayerMask.GetMask(Layers.Tool)))
+            else if (Physics.SphereCast(_aimRay.origin, radius: _interactSphereRadius, _aimRay.direction, out var vagueHit, 50, layerMask: mask))
             {
-                var didPreciseHit = Physics.Raycast(_aimRay, out var preciseHit, LayerMask.GetMask(Layers.Tool));
+                var didPreciseHit = Physics.Raycast(_aimRay.origin, _aimRay.direction, out var preciseHit, maxDistance: _interactionDistance, layerMask: mask);
                 var other = didPreciseHit ? preciseHit.collider.gameObject : vagueHit.collider.gameObject;
-                if (other != null && other.TryGetComponent<Tool>(out var tool) && _heldTool == null)
+                if (other != null && other.TryGetComponent<Tool>(out var tool))
                 {
                     if (tool.OnPickup(this))
                         _heldTool = tool;
@@ -111,7 +112,12 @@ public class PlayerController : MonoBehaviour
         {
             if (_heldTool.OnDrop(this))
             {
-                _heldTool.transform.position = _camera.transform.position + _camera.transform.forward * _toolDropOffset;
+                // prevent dropping things into the floor and causing havoc
+                if (_viewAngles.x >= 45)
+                    _heldTool.transform.position = _camera.transform.position + _camera.transform.forward * _toolDropOffset / 2 + _camera.transform.up * 0.5f;
+                else
+                    _heldTool.transform.position = _camera.transform.position + _camera.transform.forward * _toolDropOffset;
+
                 _heldTool = null;
             }
         }

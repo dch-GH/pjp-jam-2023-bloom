@@ -16,10 +16,13 @@ public abstract class Tool : MonoBehaviour
     [SerializeField]
     protected SoundCollection _sounds;
 
+    protected Vector3 _originalPosition;
+
     void Awake()
     {
         _collider = GetComponent<Collider>();
         _rb = GetComponent<Rigidbody>();
+        _originalPosition = transform.position;
     }
 
     public virtual bool OnPickup(PlayerController player)
@@ -71,5 +74,16 @@ public abstract class Tool : MonoBehaviour
         }
         hit = new RaycastHit();
         return false;
+    }
+
+    private void FixedUpdate()
+    {
+        // HACK: if something falls through the world we want to bring it back!
+        if (transform.position.y < -50)
+        {
+            _rb.velocity = Vector3.zero;
+            transform.position = _originalPosition;
+            transform.rotation = Quaternion.identity;
+        }
     }
 }
