@@ -45,7 +45,7 @@ public class Planter : MonoBehaviour
         if (Time.time - _lastTickTime >= _tickRateSeconds)
         {
             // TODO: is this magic number good enough?
-            if (_plantedCrop != null && _plantedCrop.GrowthPercentage >= 50)
+            if (_plantedCrop != null && _plantedCrop.GrowthPercentage >= 0.5f)
             {
                 SetState(PlanterState.Growing);
             }
@@ -76,7 +76,7 @@ public class Planter : MonoBehaviour
         if (_plantedCrop != null)
         {
             Player.Instance.PlantedCrops.Remove(_plantedCrop);
-            Destroy(_plantedCrop);
+            Destroy(_plantedCrop.gameObject);
             _worldPanelGroup.alpha = 0;
         }
         SetState(PlanterState.Dirt);
@@ -127,5 +127,11 @@ public class Planter : MonoBehaviour
             _seededPlot.SetActive(false);
             _growingPlot.SetActive(true);
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position + _cropOffset, 0.25f);
     }
 }

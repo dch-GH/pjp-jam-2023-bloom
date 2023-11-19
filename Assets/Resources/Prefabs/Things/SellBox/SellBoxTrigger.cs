@@ -7,7 +7,7 @@ public class SellBoxTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.LogWarning(other);
-        _sellBox.OnSell(null);
+        if (other.gameObject.TryGetComponent<ProduceBox>(out var produce))
+            _sellBox.OnSell(produce);
     }
 }

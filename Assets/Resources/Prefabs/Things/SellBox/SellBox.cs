@@ -10,5 +10,6 @@ public class SellBox : MonoBehaviour
         Player.Instance.Money += (int)StockMarket.Instance.GetStockPrice(box.Crop);
         _particles.Stop();
         _particles.Play();
+        Destroy(box.gameObject, 0.2f);
     }
 }

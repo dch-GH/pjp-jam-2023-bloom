@@ -50,13 +50,15 @@ public abstract class Tool : MonoBehaviour
     public virtual bool OnPrimaryUse(PlayerController player, Ray aimRay)
     {
         _lastUseTime = Time.time;
-        _sounds.PlayRandom();
+        if (_sounds != null)
+            _sounds.PlayRandom();
         return true;
     }
 
     public virtual bool OnSecondaryUse(PlayerController player, Ray aimRay)
     {
-        _sounds.PlayRandom();
+        if (_sounds != null)
+            _sounds.PlayRandom();
         return true;
     }
 
@@ -67,7 +69,8 @@ public abstract class Tool : MonoBehaviour
 
     protected bool TryGetInteractable(PlayerController player, out RaycastHit hit, string colliderLayer, float radius = SphereCastSize, float maxDistance = 8, bool includeTrigger = false)
     {
-        if (Physics.SphereCast(player.AimRay.origin, radius: SphereCastSize, player.AimRay.direction, out var info, maxDistance, layerMask: LayerMask.GetMask(colliderLayer)))
+        var mask = LayerMask.GetMask(colliderLayer) & ~LayerMask.GetMask(Layers.Player);
+        if (Physics.SphereCast(player.AimRay.origin, radius: SphereCastSize, player.AimRay.direction, out var info, maxDistance, layerMask: mask))
         {
             hit = info;
             return true;

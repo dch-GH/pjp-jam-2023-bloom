@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     private float _interactionDistance = 15f;
     private float _interactSphereRadius = 0.35f;
-    private float _toolDropOffset = 0.85f;
+    private float _toolDropOffset = 0.95f;
 
     void Awake()
     {
@@ -112,11 +112,12 @@ public class PlayerController : MonoBehaviour
         {
             if (_heldTool.OnDrop(this))
             {
+                var size = _heldTool.GetComponent<Collider>().bounds.size.magnitude;
                 // prevent dropping things into the floor and causing havoc
                 if (_viewAngles.x >= 45)
-                    _heldTool.transform.position = _camera.transform.position + _camera.transform.forward * _toolDropOffset / 2 + _camera.transform.up * 0.5f;
+                    _heldTool.transform.position = _camera.transform.position + _camera.transform.forward * _toolDropOffset / 2 + _camera.transform.up * (0.5f + size);
                 else
-                    _heldTool.transform.position = _camera.transform.position + _camera.transform.forward * _toolDropOffset;
+                    _heldTool.transform.position = _camera.transform.position + _camera.transform.forward * (_toolDropOffset + size);
 
                 _heldTool = null;
             }

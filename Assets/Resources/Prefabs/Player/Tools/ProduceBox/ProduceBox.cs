@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ProduceBox : MonoBehaviour
+public class ProduceBox : Tool
 {
     public CropId Crop;
 }
