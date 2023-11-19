@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _marketDays: 7
-  _marketUpdateRateSeconds: 300
+  _marketUpdateRateSeconds: 10
   _pricesUpdateSound: {fileID: 6159050467777563972}
 --- !u!223 &8867328676078514919
 Canvas:
@@ -295,7 +295,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &1124409417634751286
 MonoBehaviour:
