@@ -13,10 +13,7 @@ public class Crop : MonoBehaviour
 
     [SerializeField]
     private float _baseGrowthRateSeconds = 5;
-
-    [SerializeField]
-    [Range(0.0f, 1.0f)]
-    private float _requiredWaterLevel = 0.25f;
+    private float _requiredWaterLevel = 0.6f;
     private float _maxWaterLevel = 1.0f;
 
     [SerializeField]
@@ -25,9 +22,10 @@ public class Crop : MonoBehaviour
 
     [SerializeField]
     // how much damage not having enough water does
-    private float _droughtDamage = 2;
+    private float _droughtDamage = 0.02f;
 
-    private float _health;
+    // range of 0.0f - 1.0f
+    private float _health = 1.0f;
 
     // range of 0.0f - 1.0f
     private float _growth;
@@ -44,7 +42,7 @@ public class Crop : MonoBehaviour
     void Awake()
     {
         // So the crop doesn't start taking damage instantly.
-        _waterLevel = _requiredWaterLevel + 0.05f;
+        _waterLevel = _requiredWaterLevel - 0.25f;
     }
 
     void FixedUpdate()
@@ -87,6 +85,7 @@ public class Crop : MonoBehaviour
     public void TakeDamage(float amount)
     {
         _health -= amount;
+        _growth -= amount;
         Debug.Log($"Took damage :{amount}, health is {_health}");
         if (_health <= 0)
         {

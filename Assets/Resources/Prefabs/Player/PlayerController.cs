@@ -1,4 +1,7 @@
+using Palmmedia.ReportGenerator.Core.Reporting.Builders;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
@@ -24,6 +27,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private float _mouseSensitivity = 5;
+
+    [SerializeField]
+    private HudController _hud;
 
     private Vector3 _velocity;
     private Vector3 _viewAngles;
@@ -59,6 +65,17 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
 
+        _hud.DeathScreen.SetActive(Player.Instance.Dead);
+        if (Player.Instance.Dead)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Reload();
+            }
+
+            return;
+        }
+
         var mouseDelta = new Vector3(-Input.GetAxisRaw("Mouse Y"), Input.GetAxisRaw("Mouse X"), 0);
 
         _viewAngles += mouseDelta * _mouseSensitivity * Time.deltaTime;
@@ -74,7 +91,16 @@ public class PlayerController : MonoBehaviour
             var offset = _heldTool.HoldOffset;
             _heldTool.transform.localPosition = _camera.transform.right * offset.x + _camera.transform.up * offset.y + _camera.transform.forward * offset.z;
             _heldTool.transform.rotation = Quaternion.LookRotation(_camera.transform.forward, _camera.transform.up);
+            _heldTool.UpdateHud(this, _hud);
         }
+
+        var mask = LayerMask.GetMask(Layers.Tool) & ~LayerMask.GetMask(Layers.Player);
+        if (Physics.SphereCast(_aimRay.origin, radius: _interactSphereRadius, _aimRay.direction, out var vagueHit, 50, layerMask: mask) && vagueHit.collider.gameObject.CompareTag("Tool"))
+        {
+            _hud.SetInteractionText(string.Format("Left click to pickup {0}", vagueHit.collider.gameObject.name));
+        }
+
+        _hud.ToolInfo.SetActive(_heldTool != null);
     }
 
     private void HandleInputs()
@@ -135,7 +161,8 @@ public class PlayerController : MonoBehaviour
         wishDir.y = 0;
         wishDir.Normalize();
 
-        _velocity += wishDir * _walkSpeed * Time.fixedDeltaTime;
+        if (!Player.Instance.Dead)
+            _velocity += wishDir * _walkSpeed * Time.fixedDeltaTime;
 
         if (!_controller.isGrounded)
         {
@@ -152,5 +179,11 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.white;
         Gizmos.DrawRay(_aimRay);
         Gizmos.DrawSphere(_aimRay.origin + _aimRay.direction * 1.5f, 0.25f);
+    }
+
+    private void Reload()
+    {
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
+        SceneManager.LoadSceneAsync("Main", LoadSceneMode.Single);
     }
 }

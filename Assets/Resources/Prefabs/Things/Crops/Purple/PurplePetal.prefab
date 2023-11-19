@@ -110,14 +110,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Id: 2
-  GrowthRateModifier: 1
+  GrowthRateMultiplier: 1
   _seedlingModel: {fileID: 7126143448479270634}
   _fullyGrownModel: {fileID: 6993578952805319764}
-  _maxGrowth: 100
-  _baseGrowthRateSeconds: 5
-  _requiredWaterLevel: 0.25
-  _droughtDamageRateSeconds: 7
-  _droughtDamage: 2
+  _baseGrowthRateSeconds: 6
+  _droughtDamageRateSeconds: 11
+  _droughtDamage: 0.2
 --- !u!1001 &7912620933281560837
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -55,7 +55,8 @@ public class ShopScreenController : MonoBehaviour
 
         Sound.Stop();
         Sound.Play();
-        Instantiate(bought, transform.position + BuyPoint, Quaternion.identity);
+        var thing = Instantiate(bought, transform.position + BuyPoint, Quaternion.identity);
+        thing.name.Replace("(Clone)", string.Empty);
         Player.Instance.Money -= price;
     }
 

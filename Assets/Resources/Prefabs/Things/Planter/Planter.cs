@@ -37,6 +37,12 @@ public class Planter : MonoBehaviour
     private float _tickRateSeconds = 5;
     private float _lastTickTime;
 
+    [SerializeField]
+    private GameObject _radShieldObject;
+    private bool _hasRadiationShield;
+    public bool HasRadiationShield => _hasRadiationShield;
+    private float _lastRadiationDamageTime;
+
     void Update()
     {
         if (_state == PlanterState.Dirt)
@@ -51,6 +57,14 @@ public class Planter : MonoBehaviour
             }
 
             _lastTickTime = Time.time;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (RadStormEventManager.Instance.RadStormHappening && !HasRadiationShield && Time.time - _lastRadiationDamageTime >= 5)
+        {
+            Crop.TakeDamage(0.08f);
         }
     }
 
@@ -90,6 +104,12 @@ public class Planter : MonoBehaviour
             produce.Crop = _plantedCrop.Id;
             RemoveCrop();
         }
+    }
+
+    public void PlaceRadShield()
+    {
+        _hasRadiationShield = true;
+        _radShieldObject.SetActive(true);
     }
 
     private void SetState(PlanterState nextState)

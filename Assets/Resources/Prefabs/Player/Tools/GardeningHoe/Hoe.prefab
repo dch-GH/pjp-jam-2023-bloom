@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8399987854404902452}
   m_Layer: 7
   m_Name: Hoe
-  m_TagString: Untagged
+  m_TagString: Tool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,6 +52,7 @@ MonoBehaviour:
   HoldOffset: {x: 0.24, y: 0.3, z: 0.41}
   _useRateSeconds: 0.5
   _sounds: {fileID: 8399987854404902452}
+  _numUses: -1
 --- !u!54 &2034023173007439212
 Rigidbody:
   m_ObjectHideFlags: 0

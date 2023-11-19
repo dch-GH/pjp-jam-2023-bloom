@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1249045476384122023}
   m_Layer: 7
   m_Name: WateringCan
-  m_TagString: Untagged
+  m_TagString: Tool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,6 +52,7 @@ MonoBehaviour:
   HoldOffset: {x: 0.29, y: 0.31, z: 0.77}
   _useRateSeconds: 0.25
   _sounds: {fileID: 1249045476384122023}
+  _numUses: 10
   _waterAmount: 0.05
 --- !u!54 &4645866163760456176
 Rigidbody:

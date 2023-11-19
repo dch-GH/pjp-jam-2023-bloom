@@ -12,6 +12,7 @@ public class HomeScreenController : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(Player.Instance.Oxygen);
         _oxygenMeter.value = Player.Instance.Oxygen;
         _moneyLabel.text = string.Format("$ {0}", Player.Instance.Money);
     }

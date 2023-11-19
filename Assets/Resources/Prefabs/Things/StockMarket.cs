@@ -1,10 +1,10 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class StockMarket : MonoBehaviour
 {
-    public static StockMarket Instance;
+    public static StockMarket Instance => GameObject.FindFirstObjectByType<StockMarket>();
     private System.Random _random;
     public Dictionary<CropId, double[]> Market;
 
@@ -21,11 +21,7 @@ public class StockMarket : MonoBehaviour
 
     void Start()
     {
-        if (Instance == null)
-            Instance = this;
-
-        _random = new System.Random(42);
-
+        _random = new System.Random((int)DateTimeOffset.UtcNow.ToUnixTimeSeconds());
         UpdateStockMarket();
     }
 

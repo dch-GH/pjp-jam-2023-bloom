@@ -43,4 +43,10 @@ public class Hoe : Tool
 
         return false;
     }
+
+    public override void UpdateHud(PlayerController player, HudController hud)
+    {
+        hud.SetLeftClickText("till soil");
+        hud.SetRightClickText("harvest plant");
+    }
 }

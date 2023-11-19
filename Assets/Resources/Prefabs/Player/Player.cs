@@ -3,42 +3,52 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public static Player Instance;
+    public static Player Instance => GameObject.FindFirstObjectByType<Player>();
     public int Money;
     public float OxygenDrainAmount = 0.05f;
-    public float Oxygen = 1.0f;
+    private float _oxygen = 1f;
+    public float Oxygen => _oxygen;
     public List<Crop> PlantedCrops;
-
-    private float _oxygenTickRateSeconds = 10;
+    private float _oxygenTickRateSeconds = 6;
     private float _lastOxygenTick;
 
-    void Start()
+    public bool Dead;
+
+    void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
+        Dead = false;
+        PlantedCrops = new List<Crop>();
     }
 
     void Update()
     {
+        if (_oxygen <= 0.0f)
+        {
+            Die();
+            return;
+        }
+
         if (Time.time - _lastOxygenTick >= _oxygenTickRateSeconds)
         {
-            Oxygen -= OxygenDrainAmount;
+            _oxygen -= OxygenDrainAmount;
             foreach (var crop in PlantedCrops)
             {
-                if (crop.Id == CropId.BluePetal)
+                if (crop.Id == CropId.BluePetal && crop.GrowthPercentage >= 0.90f)
                 {
-                    if (Oxygen < 1.0f)
-                        Oxygen += 0.03f;
-
+                    _oxygen += 0.03f;
                 }
             }
 
-            if (Oxygen > 1.0f)
-                Oxygen = 1.0f;
+
+            if (_oxygen > 1.0f)
+                _oxygen = 1.0f;
 
             _lastOxygenTick = Time.time;
         }
+    }
+
+    private void Die()
+    {
+        Dead = true;
     }
 }

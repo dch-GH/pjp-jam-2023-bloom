@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3750243538900234619}
   m_Layer: 7
   m_Name: ProduceBox
-  m_TagString: Untagged
+  m_TagString: Tool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,9 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a724c399bc61b40a8bb8e38dc0c805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HoldOffset: {x: 0, y: 0, z: 0}
+  HoldOffset: {x: 0, y: 0, z: 1.2}
   _useRateSeconds: 1
   _sounds: {fileID: 0}
+  _numUses: -1
   Crop: 0
 --- !u!65 &4441654418595475452
 BoxCollider:

@@ -113,10 +113,9 @@ MonoBehaviour:
   GrowthRateMultiplier: 1
   _seedlingModel: {fileID: 7126143448479270634}
   _fullyGrownModel: {fileID: 374318984623216608}
-  _baseGrowthRateSeconds: 5
-  _requiredWaterLevel: 0.25
-  _droughtDamageRateSeconds: 7
-  _droughtDamage: 2
+  _baseGrowthRateSeconds: 13
+  _droughtDamageRateSeconds: 8
+  _droughtDamage: 0.3
 --- !u!1001 &716266902689409713
 PrefabInstance:
   m_ObjectHideFlags: 0

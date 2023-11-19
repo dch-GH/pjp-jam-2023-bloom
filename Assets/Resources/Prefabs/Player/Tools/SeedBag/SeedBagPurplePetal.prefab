@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4561035492009485534}
   m_Layer: 7
   m_Name: SeedBagPurplePetal
-  m_TagString: Untagged
+  m_TagString: Tool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,9 +54,9 @@ MonoBehaviour:
   HoldOffset: {x: 0.34, y: 0.44, z: 1.13}
   _useRateSeconds: 1
   _sounds: {fileID: 4561035492009485534}
+  _numUses: 3
   _crop: 2
   _cropPrefab: {fileID: 8921826378515716850, guid: 2f9a8048ae669a14db0f0604448976c7, type: 3}
-  _numSeeds: 3
 --- !u!54 &2108245049221705679
 Rigidbody:
   m_ObjectHideFlags: 0

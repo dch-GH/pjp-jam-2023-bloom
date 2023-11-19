@@ -16,6 +16,9 @@ public abstract class Tool : MonoBehaviour
     [SerializeField]
     protected SoundCollection _sounds;
 
+    [SerializeField]
+    protected int _numUses = -1;
+
     protected Vector3 _originalPosition;
 
     void Awake()
@@ -52,6 +55,16 @@ public abstract class Tool : MonoBehaviour
         _lastUseTime = Time.time;
         if (_sounds != null)
             _sounds.PlayRandom();
+
+        if (_numUses != -1)
+        {
+            _numUses -= 1;
+            if (_numUses <= 0)
+            {
+                Destroy(gameObject, 0.1f);
+                return true;
+            }
+        }
         return true;
     }
 
@@ -65,6 +78,11 @@ public abstract class Tool : MonoBehaviour
     protected virtual bool CanUse(PlayerController player, Ray aimRay)
     {
         return Time.time - _lastUseTime >= _useRateSeconds;
+    }
+
+    public virtual void UpdateHud(PlayerController player, HudController hud)
+    {
+        hud.SetUses(_numUses);
     }
 
     protected bool TryGetInteractable(PlayerController player, out RaycastHit hit, string colliderLayer, float radius = SphereCastSize, float maxDistance = 8, bool includeTrigger = false)
