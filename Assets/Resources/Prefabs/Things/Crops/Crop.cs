@@ -45,9 +45,9 @@ public class Crop : MonoBehaviour
     public Action OnGrown;
     public Action OnDie;
     private bool _canGrowAnymore = true;
-    public const int MaxAge = 60;
-    private int _currentAge;
-    public int Age => _currentAge;
+    public const float MaxAge = 1.0f;
+    private float _currentAge;
+    public float Age => _currentAge;
     private float _lifeTimeTick;
 
     void Awake()
@@ -60,7 +60,7 @@ public class Crop : MonoBehaviour
     {
         if (FullyGrown && Time.time - _lifeTimeTick >= 1.0f)
         {
-            _currentAge += 1;
+            _currentAge += 0.05f;
             if (_currentAge >= MaxAge)
             {
                 Die();

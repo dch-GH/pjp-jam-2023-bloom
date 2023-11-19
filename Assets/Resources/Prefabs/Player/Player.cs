@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
             _oxygen -= OxygenDrainAmount;
             foreach (var crop in PlantedCrops)
             {
-                if (crop.Id == CropId.BluePetal && crop.GrowthPercentage >= 0.90f)
+                if (crop.Id == CropId.BluePetal && crop.FullyGrown)
                 {
                     _oxygen += 0.03f;
                 }

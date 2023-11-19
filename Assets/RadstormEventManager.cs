@@ -23,11 +23,16 @@ public class RadStormEventManager : MonoBehaviour
     public bool RadStormHappening => _radStormActive;
     private float _radStormDurationSeconds = 30f;
     private float _radStormtimer;
+    private float _timeSinceAwake;
+
+    void Awake()
+    {
+        _timeSinceAwake = 0;
+    }
 
     void FixedUpdate()
     {
-        Debug.Log(Time.time - _lastRadStormTime);
-        if (Time.time - _lastRadStormTime >= _radStormCooldown && !_radStormActive)
+        if (Time.time - _lastRadStormTime >= _radStormCooldown && !_radStormActive && _timeSinceAwake >= 30)
         {
             Debug.Log("Rolling for radstorm...");
             if (UnityEngine.Random.Range(0, 10) <= _radStormChance)
@@ -53,7 +58,10 @@ public class RadStormEventManager : MonoBehaviour
                 _light.intensity = 2.17f;
                 _light.color = new Color(1, 0.95f, 0.83f, 1.0f);
                 _lastRadStormTime = Time.time;
+                _radStormtimer = 0;
             }
         }
+
+        _timeSinceAwake += Time.deltaTime;
     }
 }

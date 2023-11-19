@@ -109,7 +109,7 @@ public class Planter : MonoBehaviour
 
     public bool Harvest()
     {
-        if (_plantedCrop != null && _plantedCrop.GrowthPercentage >= 1.0f)
+        if (_plantedCrop != null && _plantedCrop.FullyGrown)
         {
             var box = Instantiate(_produceBoxPrefab, transform.position + Vector3.up * 0.75f, Quaternion.identity);
             if (box.TryGetComponent<ProduceBox>(out var produce))

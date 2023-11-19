@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a7903a14a2d9a241b75e01408182ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 1
+  Id: 3
   GrowthRateMultiplier: 1
   _seedlingModel: {fileID: 7126143448479270634}
   _fullyGrownModel: {fileID: 374318984623216608}
