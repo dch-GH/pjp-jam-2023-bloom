@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     public static Player Instance => GameObject.FindFirstObjectByType<Player>();
     public int Money = 40;
     public float OxygenDrainAmount = 0.05f;
-    private float _oxygen = 1f;
+    private float _oxygen = 1.0f;
     public float Oxygen => _oxygen;
     public List<Crop> PlantedCrops;
     private float _oxygenTickRateSeconds = 6;
